@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react'
 import Makam3D from '../components/Makam3d'
 import Makam2D from '../components/Makam2d'
 import axios from 'axios'
-import AhenkNavbar from '../components/Navbar'
 import { Container, Row, Col, Badge } from 'react-bootstrap'
 import MakamDropdownMenu, {
   SelectionDropdownMenu,
@@ -100,7 +99,6 @@ function MakamScreen({ routing, handleScreen, screen }) {
     <div>
       {allMakams.length > 0 && (
         <Container fluid>
-          <AhenkNavbar />
           <Row className='my-3 d-flex justify-content-end'>
             <Col lg={2}>
               <MakamDropdownMenu

@@ -5,6 +5,7 @@ import CesniNetworkScreen from './screens/CesniNetworkScreen'
 import MakamScreen from './screens/MakamScreen'
 import MakamNetworkScreen from './screens/MakamNetworkScreen'
 import { useState } from 'react'
+import AhenkNavbar from './components/Navbar'
 
 function App() {
   const [screen, setScreen] = useState('3d')
@@ -18,8 +19,9 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className='App'>
+    <div className='App'>
+      <AhenkNavbar />
+      <Router>
         <Container fluid>
           <Routes>
             <Route
@@ -50,8 +52,8 @@ function App() {
             />
           </Routes>
         </Container>
-      </div>
-    </Router>
+      </Router>
+    </div>
   )
 }
 
