@@ -12,7 +12,7 @@ import MakamTopology2D from '../components/MakamTopology2d'
 import { forceManyBody } from 'd3-force'
 import DimensionButtons from '../components/DimensionButtons'
 
-function MakamScreen({ handleScreen, screen }) {
+export default function MakamScreen({ handleScreen, screen }) {
   const style = { color: 'white' }
   const [makam, setMakam] = useState({})
   const [allMakams, setAllMakams] = useState([])
@@ -141,5 +141,3 @@ function MakamScreen({ handleScreen, screen }) {
     </div>
   )
 }
-
-export default MakamScreen
