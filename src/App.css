@@ -7,3 +7,38 @@
 .container-fluid {
   --bs-gutter-x: 0 !important;
 }
+
+.player,
+.img-thumbnail {
+  position: fixed;
+  top: 25rem;
+  left: 5rem;
+  width: 25vw;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+}
+
+.player {
+  top: 20rem;
+}
+
+.dropdown-menu .show {
+  inset: 15px auto auto 0px;
+}
+
+@media (max-width: 500px) {
+  .player,
+  .img-thumbnail {
+    top: 26rem;
+    left: 2rem;
+    width: 250px;
+    height: 200px;
+    z-index: 100;
+  }
+
+  .player {
+    top: 31rem;
+    flex-direction: row;
+  }
+}
