@@ -1,7 +1,13 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { ForceGraph2D } from 'react-force-graph'
 
-export default function Makam2D({ makam, adjustStrength }) {
+export default function Makam2D({
+  makam,
+  adjustStrength,
+  handleSelectedNode,
+  setCooldownTicks,
+  cooldownTicks,
+}) {
   const fgRef = useRef()
   const LINKWIDTH = 0.3
   const DEFAULTLINKCOLOR = '#a7a7d1'
@@ -30,7 +36,6 @@ export default function Makam2D({ makam, adjustStrength }) {
   }))
 
   const [data, setData] = useState({ nodes: [], links: [] })
-  const [cooldownTicks, setCooldownTicks] = useState(undefined)
   const [highlightedLinks, setHighlightedLinks] = useState([])
   const [highlightedNodes, setHighlightedNodes] = useState([])
 
@@ -38,7 +43,6 @@ export default function Makam2D({ makam, adjustStrength }) {
     setCooldownTicks()
     setData({ nodes: gDataNodes, links: gDataLinks })
     adjustStrength(fgRef)
-    console.log('data', data)
   }, [fgRef, makam, adjustStrength])
 
   const handleHighlightLinks = useCallback(
@@ -123,6 +127,7 @@ export default function Makam2D({ makam, adjustStrength }) {
       autoPauseRedraw={false}
       cooldownTicks={cooldownTicks}
       onNodeHover={handleHighlightedNodes}
+      onNodeClick={handleSelectedNode}
     />
   )
 }

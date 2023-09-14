@@ -31,14 +31,13 @@ export default function Makam3D({ makam }) {
 
   const handleClick = useCallback(
     (node) => {
-      // Aim at node from outside it
       const distance = 40
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z)
 
       fgRef.current.cameraPosition(
-        { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
-        node, // lookAt ({ x, y, z })
-        3000 // ms transition duration
+        { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio },
+        node,
+        3000
       )
     },
     [fgRef]

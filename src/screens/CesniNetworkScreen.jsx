@@ -8,42 +8,54 @@ import DimensionButtons from '../components/DimensionButtons'
 const url = 'https://recepgul82.pythonanywhere.com/cesni_all/?format=json'
 
 function CesniNetworkScreen({ handleScreen, screen }) {
-  const [nodes, setNodes] = useState([])
-  const [links, setLinks] = useState([])
-  const [isLoading, setIsLoading] = useState(true) // Add isLoading state
+  const [allNodes, setAllNodes] = useState([])
+  const [allLinks, setAllLinks] = useState([])
+  const [selectedNode, setSelectedNode] = useState()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchCesniNetwork() {
+    async function fetchNodesLinks() {
       try {
+        setIsLoading(true)
+
         const { data } = await axios.get(url)
-        setNodes(data.nodes)
-        setLinks(data.links)
-        setIsLoading(false) // Set isLoading to false when data is fetched
+        setAllNodes(data.nodes)
+        setAllLinks(data.links)
+        setIsLoading(false)
       } catch (error) {
-        console.error(error)
+        console.log(error)
+        setIsLoading(false)
       }
     }
-    fetchCesniNetwork()
+
+    fetchNodesLinks()
   }, [])
+
+  function handleSelectedNode(e) {
+    console.log('selected node: ', e)
+  }
 
   return (
     <>
       <Container fluid>
         <DimensionButtons handleScreen={handleScreen} />
-        {isLoading ? ( // Check if isLoading is true
+        {isLoading ? (
           <div className='text-center mt-5'>
             <Spinner animation='border' role='status' variant='info'>
               <span className='visually-hidden'>Loading...</span>
             </Spinner>
           </div>
-        ) : // Render your CesniNetwork2D or CesniNetwork3D components here
-        screen === '2d' ? (
+        ) : screen === '2d' ? (
           <div>
-            <CesniNetwork2D nodes={nodes} links={links} />
+            <CesniNetwork2D
+              nodes={allNodes}
+              links={allLinks}
+              handleSelectedNode={handleSelectedNode}
+            />
           </div>
         ) : (
           <div>
-            <CesniNetwork3D nodes={nodes} links={links} />
+            <CesniNetwork3D nodes={allNodes} links={allLinks} />
           </div>
         )}
       </Container>

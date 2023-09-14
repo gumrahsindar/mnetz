@@ -2,17 +2,18 @@ import { useEffect, useState, useCallback } from 'react'
 import Makam3D from '../components/Makam3d'
 import Makam2D from '../components/Makam2d'
 import axios from 'axios'
-import { Container, Row, Col, Badge, Spinner } from 'react-bootstrap'
+import { Container, Row, Col, Badge, Spinner, Image } from 'react-bootstrap'
 import MakamDropdownMenu, {
   SelectionDropdownMenu,
 } from '../components/Dropdown'
 import MakamInCesniNetwork3D from '../components/MakamInCesniNetwork3d'
 import MakamInCesniNetwork2D from '../components/MakamInCesniNetwork2d'
-import MakamTopology2D from '../components/MakamTopology2d'
 import { forceManyBody } from 'd3-force'
 import DimensionButtons from '../components/DimensionButtons'
+import AudioPlayer from '../components/AudioPlayer'
+import MakamTopology2D from '../components/MakamTopology2d'
 
-export default function MakamScreen({ handleScreen, screen }) {
+function MakamScreen({ handleScreen, screen }) {
   const style = { color: 'white' }
   const [makam, setMakam] = useState({})
   const [allMakams, setAllMakams] = useState([])
@@ -20,42 +21,85 @@ export default function MakamScreen({ handleScreen, screen }) {
   const [links, setLinks] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [displayStyle, setDisplayStyle] = useState(0)
-  const url = 'https://recepgul82.pythonanywhere.com/makam_all/?format=json'
+  const [selectedNode, setSelectedNode] = useState()
+  const [cooldownTicks, setCooldownTicks] = useState(undefined)
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     setIsLoading(true)
+  //     try {
+  //       const response = await axios.get(url)
+  //       const { data } = response
+
+  //       if (data) {
+  //         setAllMakams(data)
+  //         setMakam(data[0])
+  //         if (data.nodes) {
+  //           setNodes(data.nodes)
+  //         }
+  //         if (data.links) {
+  //           setLinks(data.links)
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //     setIsLoading(false)
+  //   }
+
+  //   fetchData()
+  // }, [url])
 
   useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true)
-      try {
-        const response = await axios.get(url)
-        const { data } = response
+    console.log('makam screen effect rendered')
 
-        if (data) {
-          setAllMakams(data)
-          setMakam(data[0])
-          if (data.nodes) {
-            setNodes(data.nodes)
-          }
-          if (data.links) {
-            setLinks(data.links)
-          }
-        }
+    async function fetchMakams() {
+      try {
+        const { data } = await axios.get(
+          'https://recepgul82.pythonanywhere.com/makam_all/?format=json'
+        )
+        setAllMakams(data)
+        setMakam(data[0])
       } catch (error) {
-        console.log(error)
+        console.error('Makam verileri alınırken hata oluştu:', error)
       }
-      setIsLoading(false)
     }
 
-    fetchData()
-  }, [url])
+    async function fetchCesniNetwork() {
+      try {
+        const { data } = await axios.get(
+          'https://recepgul82.pythonanywhere.com/cesni_all/?format=json'
+        )
+        setNodes(data.nodes)
+        setLinks(data.links)
+      } catch (error) {
+        console.error('Cesni ağı verileri alınırken hata oluştu:', error)
+      }
+    }
+
+    setIsLoading(true)
+    Promise.all([fetchMakams(), fetchCesniNetwork()])
+      .then(() => {
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.error('Bir veya daha fazla istek başarısız oldu:', error)
+        setIsLoading(false)
+      })
+  }, [])
 
   function handleSelectMakam(index) {
     setMakam(allMakams[index])
   }
 
   function handleDisplayStyle(index) {
-    console.log('display before: ', displayStyle)
     setDisplayStyle(index)
-    console.log('display after: ', displayStyle)
+  }
+
+  function handleSelectedNode(e) {
+    if (e) {
+      setSelectedNode(e)
+    }
   }
 
   const handleStrength = useCallback((reference) => {
@@ -68,7 +112,13 @@ export default function MakamScreen({ handleScreen, screen }) {
         return (
           <div>
             {screen === '2d' ? (
-              <Makam2D makam={makam} adjustStrength={handleStrength} />
+              <Makam2D
+                makam={makam}
+                adjustStrength={handleStrength}
+                handleSelectedNode={handleSelectedNode}
+                setCooldownTicks={setCooldownTicks}
+                cooldownTicks={cooldownTicks}
+              />
             ) : (
               <Makam3D makam={makam} adjustStrength={handleStrength} />
             )}
@@ -95,7 +145,15 @@ export default function MakamScreen({ handleScreen, screen }) {
       case 2:
         return (
           <div>
-            {<MakamTopology2D makam={makam} nodes={nodes} links={links} />}
+            {
+              <MakamTopology2D
+                makam={makam}
+                nodes={nodes}
+                links={links}
+                handleSelectedNode={handleSelectedNode}
+                cooldownTicks={cooldownTicks}
+              />
+            }
           </div>
         )
       default:
@@ -144,9 +202,20 @@ export default function MakamScreen({ handleScreen, screen }) {
               </h1>
             </Col>
           </Row>
-          {switchDisplay(displayStyle)}
+          <Row className='py-3'>
+            {selectedNode && (
+              <div>
+                <Image src={selectedNode.scores[0]} thumbnail />
+                <AudioPlayer source={selectedNode.recordings[0]} />
+              </div>
+            )}
+
+            <Col lg={9}>{switchDisplay(displayStyle)}</Col>
+          </Row>
         </Container>
       )}
     </div>
   )
 }
+
+export default MakamScreen

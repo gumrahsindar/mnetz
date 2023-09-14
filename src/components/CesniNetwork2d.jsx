@@ -2,9 +2,12 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { forceManyBody } from 'd3-force'
 import { ForceGraph2D } from 'react-force-graph'
 
-function CesniNetwork2D({ nodes, links }) {
-  console.log('makam nodes', nodes)
-
+function CesniNetwork2D({
+  nodes,
+  links,
+  nodeColor = 'auto',
+  handleSelectedNode,
+}) {
   const fgRef = useRef()
   const LINKWIDTH = 0.3
   const DEFAULTLINKCOLOR = '#a7a7d1'
@@ -18,30 +21,28 @@ function CesniNetwork2D({ nodes, links }) {
     axis_based2: 'orange',
   }
 
-  const gDataLinks = links.map((link, index) => ({
-    id: index,
-    source: link.source,
-    target: link.target,
-    linkColor: transformations[link.transformation],
-    width: LINKWIDTH,
-    highlighted: 0,
-  }))
-  const gDataNodes = nodes.map((node) =>
-    node.category === 'cesni' ? { ...node, level: 1 } : { ...node, level: 2 }
-  )
-
-  const [data, setData] = useState({ nodes: [], links: [] })
-  const [cooldownTicks, setCooldownTicks] = useState(undefined)
+  const [data, setData] = useState()
+  const [cooldownTicks, setCooldownTicks] = useState()
   const [highlightedLinks, setHighlightedLinks] = useState([])
   const [highlightedNodes, setHighlightedNodes] = useState([])
 
   useEffect(() => {
-    adjustStrength()
-  }, [fgRef])
+    const gDataLinks = links.map((link, index) => ({
+      id: index,
+      source: link.source,
+      target: link.target,
+      transformation: link.transformation,
+      linkColor: transformations[link.transformation],
+      width: LINKWIDTH,
+      highlighted: 0,
+    }))
+    const gDataNodes = nodes.map((node) =>
+      node.category === 'cesni' ? { ...node, level: 1 } : { ...node, level: 2 }
+    )
 
-  useEffect(() => {
     setCooldownTicks()
     setData({ nodes: gDataNodes, links: gDataLinks })
+    adjustStrength(fgRef)
   }, [nodes, links])
 
   function adjustStrength() {
@@ -73,7 +74,7 @@ function CesniNetwork2D({ nodes, links }) {
       const relatedLinks = data.links.filter(
         (link) => link.source === currentNode || link.target === currentNode
       )
-      console.log(relatedLinks)
+
       handleHighlightLinks(relatedLinks)
     },
     [handleHighlightLinks, data]
@@ -120,6 +121,7 @@ function CesniNetwork2D({ nodes, links }) {
         },
         [PaintRing]
       )}
+      linkLabel={(d) => d.transformation}
       nodeDrag={false}
       linkHoverPrecision={10}
       linkDirectionalParticles={4}
@@ -133,6 +135,7 @@ function CesniNetwork2D({ nodes, links }) {
       autoPauseRedraw={false}
       cooldownTicks={cooldownTicks}
       onNodeHover={handleHighlightedNodes}
+      onNodeClick={handleSelectedNode}
     />
   )
 }
