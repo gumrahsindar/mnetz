@@ -12,33 +12,38 @@ import MakamTopology2D from '../components/MakamTopology2d'
 import { forceManyBody } from 'd3-force'
 import DimensionButtons from '../components/DimensionButtons'
 
-function MakamScreen({ routing, handleScreen, screen }) {
+function MakamScreen({ handleScreen, screen }) {
   const style = { color: 'white' }
   const [makam, setMakam] = useState({})
   const [allMakams, setAllMakams] = useState([])
   const [nodes, setNodes] = useState([])
   const [links, setLinks] = useState([])
   const [displayStyle, setDisplayStyle] = useState(0)
+  const url = 'https://recepgul82.pythonanywhere.com/makam_all/?format=json'
 
   useEffect(() => {
-    async function fetchMakams() {
-      const { data } = await axios.get(routing)
-      // console.log("data", data);
-      setAllMakams(data)
-      setMakam(data[0])
+    async function fetchData() {
+      try {
+        const response = await axios.get(url)
+        const { data } = response
+
+        if (data) {
+          setAllMakams(data)
+          setMakam(data[0])
+          if (data.nodes) {
+            setNodes(data.nodes)
+          }
+          if (data.links) {
+            setLinks(data.links)
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
 
-    async function fetchCesniNetwork() {
-      const { data } = await axios.get(
-        'https://recepgul82.pythonanywhere.com/cesni_all/?format=json'
-      )
-      setNodes(data.nodes)
-      setLinks(data.links)
-    }
-
-    fetchCesniNetwork()
-    fetchMakams()
-  }, [routing])
+    fetchData()
+  }, [url])
 
   function handleSelectMakam(index) {
     setMakam(allMakams[index])
@@ -97,7 +102,7 @@ function MakamScreen({ routing, handleScreen, screen }) {
 
   return (
     <div>
-      {allMakams.length > 0 && (
+      {allMakams && (
         <Container fluid>
           <Row className='my-3 d-flex justify-content-end'>
             <Col lg={2}>
@@ -122,7 +127,7 @@ function MakamScreen({ routing, handleScreen, screen }) {
             </Col>
             <Col lg={4}>
               <h1 style={style}>
-                {makam.nodes.length > 0 && (
+                {makam && makam.nodes && makam.nodes.length > 0 && (
                   <Badge bg='warning' text='dark'>
                     {makam.isim} Makamı
                   </Badge>

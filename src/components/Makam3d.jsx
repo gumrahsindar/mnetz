@@ -12,6 +12,10 @@ export default function Makam3D({ makam }) {
     yedenColor: '#e86b68',
   }
 
+  if (!makam || !makam.nodes || !makam.links) {
+    return null
+  }
+
   const gDataLinks = makam.links.map((link) => ({
     source: link.source,
     target: link.target,

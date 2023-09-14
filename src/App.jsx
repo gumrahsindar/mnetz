@@ -1,6 +1,6 @@
 import './App.css'
 import { Container } from 'react-bootstrap'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import CesniNetworkScreen from './screens/CesniNetworkScreen'
 import MakamScreen from './screens/MakamScreen'
 import MakamNetworkScreen from './screens/MakamNetworkScreen'
@@ -37,11 +37,7 @@ function App() {
             <Route
               path='/makam'
               element={
-                <MakamScreen
-                  routing='https://recepgul82.pythonanywhere.com/makam_all/?format=json'
-                  handleScreen={handleScreen}
-                  screen={screen}
-                />
+                <MakamScreen handleScreen={handleScreen} screen={screen} />
               }
             />
             <Route path='/makam_network' element={<MakamNetworkScreen />} />
