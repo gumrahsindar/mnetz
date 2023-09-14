@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap'
 
 function DimensionButtons({ handleScreen }) {
   return (
-    <div className='mb-4 d-flex justify-content-center gap-5'>
+    <div className='mb-4 d-flex justify-content-center gap-2'>
       <Button variant='danger' onClick={handleScreen} value='3d'>
         3D
       </Button>{' '}

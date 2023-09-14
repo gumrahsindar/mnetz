@@ -113,7 +113,7 @@ export default function MakamScreen({ handleScreen, screen }) {
         </Container>
       ) : (
         <Container fluid>
-          <Row className='my-3 d-flex justify-content-end'>
+          <Row className='my-3 d-flex justify-content-end mx-auto'>
             <Col lg={2}>
               <MakamDropdownMenu
                 makamList={allMakams}
