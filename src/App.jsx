@@ -33,7 +33,6 @@ function App() {
                   screen={screen}
                 />
               }
-              exact
             />
             <Route
               path='/makam'
@@ -45,11 +44,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path='/makam_network'
-              element={<MakamNetworkScreen />}
-              exact
-            />
+            <Route path='/makam_network' element={<MakamNetworkScreen />} />
           </Routes>
         </Router>
       </Container>
