@@ -35,7 +35,7 @@ function App() {
               }
             />
             <Route
-              path='/makam'
+              path='/makam/*'
               element={
                 <MakamScreen handleScreen={handleScreen} screen={screen} />
               }
