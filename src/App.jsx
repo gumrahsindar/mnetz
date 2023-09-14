@@ -1,6 +1,6 @@
 import './App.css'
 import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 import CesniNetworkScreen from './screens/CesniNetworkScreen'
 import MakamScreen from './screens/MakamScreen'
 import MakamNetworkScreen from './screens/MakamNetworkScreen'
