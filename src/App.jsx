@@ -21,8 +21,8 @@ function App() {
   return (
     <div className='App'>
       <AhenkNavbar />
-      <Router>
-        <Container fluid>
+      <Container fluid>
+        <Router>
           <Routes>
             <Route
               path='/'
@@ -51,8 +51,8 @@ function App() {
               exact
             />
           </Routes>
-        </Container>
-      </Router>
+        </Router>
+      </Container>
     </div>
   )
 }
