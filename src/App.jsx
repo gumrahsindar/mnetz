@@ -28,7 +28,6 @@ function App() {
               path='/'
               element={
                 <CesniNetworkScreen
-                  routing='https://recepgul82.pythonanywhere.com/cesni_all/?format=json'
                   handleScreen={handleScreen}
                   screen={screen}
                 />

@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import Makam3D from '../components/Makam3d'
 import Makam2D from '../components/Makam2d'
 import axios from 'axios'
-import { Container, Row, Col, Badge } from 'react-bootstrap'
+import { Container, Row, Col, Badge, Spinner } from 'react-bootstrap'
 import MakamDropdownMenu, {
   SelectionDropdownMenu,
 } from '../components/Dropdown'
@@ -18,11 +18,13 @@ export default function MakamScreen({ handleScreen, screen }) {
   const [allMakams, setAllMakams] = useState([])
   const [nodes, setNodes] = useState([])
   const [links, setLinks] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   const [displayStyle, setDisplayStyle] = useState(0)
   const url = 'https://recepgul82.pythonanywhere.com/makam_all/?format=json'
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
       try {
         const response = await axios.get(url)
         const { data } = response
@@ -40,6 +42,7 @@ export default function MakamScreen({ handleScreen, screen }) {
       } catch (error) {
         console.log(error)
       }
+      setIsLoading(false)
     }
 
     fetchData()
@@ -102,7 +105,13 @@ export default function MakamScreen({ handleScreen, screen }) {
 
   return (
     <div>
-      {allMakams && (
+      {isLoading ? (
+        <Container fluid className='text-center mt-5'>
+          <Spinner animation='border' role='status' variant='info'>
+            <span className='visually-hidden'>Loading...</span>
+          </Spinner>
+        </Container>
+      ) : (
         <Container fluid>
           <Row className='my-3 d-flex justify-content-end'>
             <Col lg={2}>
