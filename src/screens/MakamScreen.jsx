@@ -183,8 +183,8 @@ function MakamScreen({ handleScreen, screen }) {
                 dropdownName={'Display Style'}
                 options={[
                   'single',
-                  'inside cesni network',
-                  'relations and transformations',
+                  // 'inside cesni network',
+                  // 'relations and transformations',
                 ]}
                 handleSelect={handleDisplayStyle}
               />
