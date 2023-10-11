@@ -37,7 +37,7 @@ function App() {
     }
   }
 
-  const correctPassword = '1234' // Replace with your actual password
+  const correctPassword = import.meta.env.VITE_REACT_APP_PASSWORD
 
   const closeModal = () => {
     if (password === correctPassword) {
