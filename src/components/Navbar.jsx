@@ -15,7 +15,10 @@ function AhenkNavbar() {
           <Navbar.Brand className='border-0 fs-2' href='/'>
             MakamNetz
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
+          <Navbar.Toggle
+            style={{ fontSize: '1rem' }}
+            aria-controls='basic-navbar-nav'
+          />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               <Nav.Link href='/' className='border-0'>
