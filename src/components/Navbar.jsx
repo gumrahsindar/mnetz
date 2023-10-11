@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 function AhenkNavbar() {
   return (
     <>
-      <Navbar className='w-75 mx-auto border-0 py-4' bg='dark' variant='dark'>
+      <Navbar className='w-75 mx-auto border-0' bg='dark' variant='dark'>
         <Container fluid>
           <Navbar.Brand className='border-0 fs-2' href='/'>
             MakamNetz

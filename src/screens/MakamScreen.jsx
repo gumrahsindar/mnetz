@@ -171,7 +171,7 @@ function MakamScreen({ handleScreen, screen }) {
         </Container>
       ) : (
         <Container fluid>
-          <Row className='my-3 d-flex justify-content-end mx-auto'>
+          <Row className='my-1 d-flex justify-content-end mx-auto'>
             <Col lg={2}>
               <MakamDropdownMenu
                 makamList={allMakams}
@@ -183,8 +183,8 @@ function MakamScreen({ handleScreen, screen }) {
                 dropdownName={'Display Style'}
                 options={[
                   'single',
-                  // 'inside cesni network',
-                  // 'relations and transformations',
+                  'inside cesni network',
+                  'relations and transformations',
                 ]}
                 handleSelect={handleDisplayStyle}
               />
@@ -193,13 +193,13 @@ function MakamScreen({ handleScreen, screen }) {
               <DimensionButtons handleScreen={handleScreen} />
             </Col>
             <Col lg={4}>
-              <h1 style={style}>
+              <h4 style={style}>
                 {makam && makam.nodes && makam.nodes.length > 0 && (
                   <Badge bg='warning' text='dark'>
                     {makam.isim} Makamı
                   </Badge>
                 )}
-              </h1>
+              </h4>
             </Col>
           </Row>
           <Row className='py-3'>

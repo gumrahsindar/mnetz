@@ -9,7 +9,7 @@ function MakamDropdownMenu({ makamList, handleSelect }) {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant='success' id='dropdown-basic'>
+      <Dropdown.Toggle size='sm' variant='success' id='dropdown-basic'>
         Makam List
       </Dropdown.Toggle>
 
@@ -27,7 +27,7 @@ export function SelectionDropdownMenu({ dropdownName, options, handleSelect }) {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant='success' id='dropdown-basic'>
+      <Dropdown.Toggle size='sm' variant='success' id='dropdown-basic'>
         {dropdownName}
       </Dropdown.Toggle>
 
