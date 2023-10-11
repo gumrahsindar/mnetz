@@ -6,7 +6,7 @@ function PasswordModal({ password, setPassword, closeModal, error }) {
   return (
     <div className='modal'>
       <div className='modal-content'>
-        <h2 className='modal-title'>Enter Password</h2>
+        <h2 className='modal-title'>MakamNetz</h2>
         <form
           className='modal-form'
           onSubmit={(e) => {
