@@ -1,30 +1,12 @@
-import { useRef } from 'react'
-
-function PasswordModal({ password, setPassword, closeModal, error, setError }) {
-  const inputRef = useRef(null)
-
+function PasswordModal({ password, setPassword, closeModal, error }) {
   const handleChange = (e) => {
-    const inputValue = e.target.value
-    setPassword(inputValue)
-
-    if (inputValue === '') {
-      setError(false)
-    }
-  }
-
-  const clearError = () => {
-    if (error) {
-      setError(false)
-      if (inputRef.current) {
-        inputRef.current.value = ''
-      }
-    }
+    setPassword(e.target.value)
   }
 
   return (
     <div className='modal'>
       <div className='modal-content'>
-        <h2 className='modal-title'>MakamNetz</h2>
+        <h2 className='modal-title'>Enter Password</h2>
         <form
           className='modal-form'
           onSubmit={(e) => {
@@ -39,18 +21,13 @@ function PasswordModal({ password, setPassword, closeModal, error, setError }) {
               type='password'
               value={password}
               onChange={handleChange}
-              onFocus={clearError}
-              ref={inputRef}
             />
           </label>
-          {error && inputRef.current && inputRef.current.value !== '' && (
-            <p className='error-message'>Wrong Password</p>
-          )}
+          {error && <p className='error-message'>Wrong Password</p>}
           <button className='modal-button' type='submit'>
             Submit
           </button>
         </form>
-        {/* No need for a "Close" button; modal closes when the password is correct */}
       </div>
     </div>
   )
