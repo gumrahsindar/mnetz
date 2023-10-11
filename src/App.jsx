@@ -18,7 +18,7 @@ function App() {
     const sessionStartTime = localStorage.getItem('sessionStartTime')
     if (sessionStartTime) {
       const currentTime = new Date().getTime()
-      const sessionDuration = 60 * 60 * 1000
+      const sessionDuration = 1000 * 60 * 60 * 24
 
       if (currentTime - sessionStartTime > sessionDuration) {
         setModalOpen(true)
