@@ -11,7 +11,7 @@ import MakamInCesniNetwork2D from '../components/MakamInCesniNetwork2d'
 import { forceManyBody } from 'd3-force'
 import DimensionButtons from '../components/DimensionButtons'
 import AudioPlayer from '../components/AudioPlayer'
-import MakamTopology2D from '../components/MakamTopology2d'
+import { MakamTopology2D } from '../components/MakamTopology2d'
 
 function MakamScreen({ handleScreen, screen }) {
   const style = { color: 'white' }
@@ -147,7 +147,7 @@ function MakamScreen({ handleScreen, screen }) {
           <div>
             {
               <MakamTopology2D
-                makam={makam}
+                makams={[makam]}
                 nodes={nodes}
                 links={links}
                 handleSelectedNode={handleSelectedNode}

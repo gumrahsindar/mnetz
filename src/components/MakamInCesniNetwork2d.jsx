@@ -38,7 +38,7 @@ function MakamInCesniNetwork2D({ nodes, links, makam }) {
     setCooldownTicks()
     setData({ nodes: gDataNodes, links: gDataLinks })
     adjustStrength(fgRef)
-  }, [makam, gDataLinks, gDataNodes])
+  }, [makam])
 
   function adjustStrength() {
     fgRef.current.d3Force('charge', forceManyBody().strength(-500))

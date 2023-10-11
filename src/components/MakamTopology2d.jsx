@@ -1,7 +1,7 @@
 import CesniNetwork2D from './CesniNetwork2d'
 import { useState, useEffect } from 'react'
 
-export default function MakamTopology2D({
+function MakamTopology2D({
   makams,
   nodes,
   links,
