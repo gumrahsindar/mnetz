@@ -12,6 +12,7 @@ function App() {
   const [screen, setScreen] = useState('3d')
   const [password, setPassword] = useState('')
   const [isModalOpen, setModalOpen] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const sessionStartTime = localStorage.getItem('sessionStartTime')
@@ -44,6 +45,7 @@ function App() {
       localStorage.setItem('sessionStartTime', new Date().getTime())
       setModalOpen(false)
     }
+    setError(true)
   }
 
   return (
@@ -53,6 +55,7 @@ function App() {
           password={password}
           setPassword={setPassword}
           closeModal={closeModal}
+          error={error}
         />
       ) : (
         <>
