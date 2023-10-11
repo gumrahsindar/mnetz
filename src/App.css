@@ -30,15 +30,14 @@
 @media (max-width: 500px) {
   .player,
   .img-thumbnail {
-    top: 26rem;
-    left: 2rem;
-    width: 250px;
-    height: 200px;
+    top: 215px;
+    left: 0;
+    width: 200px;
     z-index: 100;
   }
 
   .player {
-    top: 31rem;
+    top: 18rem;
     flex-direction: row;
   }
 }
