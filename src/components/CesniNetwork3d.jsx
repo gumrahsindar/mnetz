@@ -6,10 +6,11 @@ import { Container } from 'react-bootstrap'
 export default function CesniNetwork3D({ nodes, links }) {
   const transformations = {
     girift: 'blue',
-    secondary_axis: 'purple',
-    eksen_kaydirim: 'red',
-    axis_based1: 'green',
-    axis_based2: 'orange',
+    p_axis: 'brown',
+    s_axis: 'purple',
+    t_related: 'red',
+    ps_related: 'green',
+    p_related: 'orange',
   }
 
   const gDataLinks = links.map((link) => ({
@@ -49,7 +50,7 @@ export default function CesniNetwork3D({ nodes, links }) {
           ref={fgRef}
           graphData={gData}
           linkWidth={0.1}
-          backgroundColor={'white'}
+          backgroundColor={'black'}
           nodeVal={(node) => Math.pow(node.level, 3)}
           nodeAutoColorBy={(d) => d.family_id}
           nodeOpacity={0.6}

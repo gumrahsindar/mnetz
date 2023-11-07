@@ -15,10 +15,11 @@ function CesniNetwork2D({
 
   const transformations = {
     girift: 'blue',
-    secondary_axis: 'purple',
-    eksen_kaydirim: 'red',
-    axis_based1: 'green',
-    axis_based2: 'orange',
+    p_axis: 'brown',
+    s_axis: 'purple',
+    t_related: 'red',
+    ps_related: 'green',
+    p_related: 'orange',
   }
 
   const [data, setData] = useState()
@@ -105,7 +106,7 @@ function CesniNetwork2D({
       ref={fgRef}
       graphData={data}
       nodeRelSize={NODE_RADIUS}
-      backgroundColor={'white'}
+      backgroundColor={'black'}
       nodeVal={(node) => Math.pow(node.level, 1.5)}
       nodeAutoColorBy={(d) => d.family_id}
       linkColor={(d) => (d.highlighted === 1 ? d.linkColor : DEFAULTLINKCOLOR)}
