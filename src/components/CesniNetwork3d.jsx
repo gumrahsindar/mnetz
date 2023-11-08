@@ -49,7 +49,7 @@ export default function CesniNetwork3D({ nodes, links }) {
           className='mx-auto'
           ref={fgRef}
           graphData={gData}
-          linkWidth={0.1}
+          linkWidth={0.25}
           backgroundColor={'black'}
           nodeVal={(node) => Math.pow(node.level, 3)}
           nodeAutoColorBy={(d) => d.family_id}
@@ -59,7 +59,7 @@ export default function CesniNetwork3D({ nodes, links }) {
           nodeThreeObject={(node) => {
             const sprite = new SpriteText(node.name)
             sprite.textHeight = 2
-            sprite.color = 'black'
+            sprite.color = 'gray'
             sprite.position.y = -10
             return sprite
           }}

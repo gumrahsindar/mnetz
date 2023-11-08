@@ -9,7 +9,7 @@ function CesniNetwork2D({
   handleSelectedNode,
 }) {
   const fgRef = useRef()
-  const LINKWIDTH = 0.3
+  const LINKWIDTH = 0.08
   const DEFAULTLINKCOLOR = '#a7a7d1'
   const NODE_RADIUS = 8
 
