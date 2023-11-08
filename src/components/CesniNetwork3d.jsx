@@ -59,7 +59,7 @@ export default function CesniNetwork3D({ nodes, links }) {
           nodeThreeObject={(node) => {
             const sprite = new SpriteText(node.name)
             sprite.textHeight = 2
-            sprite.color = 'gray'
+            sprite.color = 'white'
             sprite.position.y = -10
             return sprite
           }}
