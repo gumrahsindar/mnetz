@@ -20,6 +20,7 @@ function CesniNetwork2D({
     t_related: 'red',
     ps_related: 'green',
     p_related: 'orange',
+    s_to_p_related: "darkolivegreen", 
   }
 
   const [data, setData] = useState()

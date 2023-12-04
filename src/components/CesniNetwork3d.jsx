@@ -11,6 +11,7 @@ export default function CesniNetwork3D({ nodes, links }) {
     t_related: 'red',
     ps_related: 'green',
     p_related: 'orange',
+    s_to_p_related: "darkolivegreen", 
   }
 
   const gDataLinks = links.map((link) => ({
